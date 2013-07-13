@@ -16,9 +16,10 @@
 
 
 (defn update-user [id f-name l-name email]
-  (mc/update-by-id
-    "users" id
-    {:$set {:f_name f-name, :l_name l-name, :email email}}))
+  (mc/update-by-id "users" id
+    {:$set {:f_name f-name,
+            :l_name l-name,
+            :email email}}))
 
 
 (defn get-user [id]
