@@ -24,26 +24,25 @@
      :async? false ; should be always false for rotor
      :max-message-per-msecs nil
      :fn rotor/append})
-  
+
   (timbre/set-config!
     [:shared-appender-config :rotor]
     {:path "flutter.log" :max-size (* 512 1024) :backlog 10})
-  
-  (if-not (schema/initialized?)
-    (schema/create-tables))
-  
+
+  (schema/initialize)
+
   (timbre/info "flutter started successfully"))
 
 (defn destroy
   "destroy will be called when your application
    shuts down, put any clean up code here"
-  [] 
+  []
   (timbre/info "flutter is shutting down..."))
 
 (def app (middleware/app-handler
            ;;add your application routes here
            [auth-routes home-routes app-routes]
-           ;;add custom middleware here           
+           ;;add custom middleware here
            :middleware []
            ;;add access rules here
            ;;each rule should be a vector
