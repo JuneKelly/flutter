@@ -1,6 +1,8 @@
 (ns flutter.util
   (:require [noir.io :as io]
-            [markdown.core :as md]))
+            [markdown.core :as md])
+  (:use clojure.java.io))
+
 
 (defn format-time
   "formats the time using SimpleDateFormat, the default format is
@@ -8,6 +10,7 @@
   ([time] (format-time time "dd MMM, yyyy"))
   ([time fmt]
     (.format (new java.text.SimpleDateFormat fmt) time)))
+
 
 (defn md->html
   "reads a markdown file from public/md and returns an HTML string"
