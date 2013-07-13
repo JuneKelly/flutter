@@ -28,7 +28,7 @@
   (if (valid? id pass pass1)
     (try
       (do
-        (db/create-user {:id id :pass (crypt/encrypt pass)})
+        (db/create-user id (crypt/encrypt pass))
         (session/put! :user-id id)
         (resp/redirect "/"))
       (catch Exception ex

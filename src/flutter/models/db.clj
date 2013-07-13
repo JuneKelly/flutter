@@ -1,24 +1,25 @@
 (ns flutter.models.db
-  (:use korma.core
-        [korma.db :only (defdb)])
-  (:require [flutter.models.schema :as schema]))
+  (:require [flutter.models.schema :as schema])
+  (:require [monger.core :as mg])
+  (:require [monger.collection :as mc])
+  (:import [org.bson.types ObjectId]
+           [com.mongodb DB WriteConcern]))
 
-(defdb db schema/db-spec)
 
-(defentity users)
+(mg/connect!)
+(mg/set-db! (mg/get-db "flutter_dev"))
 
-(defn create-user [user]
-  (insert users
-          (values user)))
 
-(defn update-user [id first-name last-name email]
-  (update users
-  (set-fields {:first_name first-name
-               :last_name last-name
-               :email email})
-  (where {:id id})))
+(defn create-user [id, pass]
+  (let [doc {:_id id, :password pass}]
+    (mc/insert "users" doc)))
+
+
+(defn update-user [id f-name l-name email]
+  (mc/update-by-id
+    "users" id
+    {:f_name f-name, :l_name l-name, :email email}))
+
 
 (defn get-user [id]
-  (first (select users
-                 (where {:id id})
-                 (limit 1))))
+  (mc/find-map-by-id "users" id))

@@ -20,7 +20,7 @@
      javax.jms/jms
      com.sun.jdmk/jmxtools
      com.sun.jmx/jmxri]]
-   [novemberain/monger "1.5.0"]]
+   [com.novemberain/monger "1.5.0"]]
   :ring
   {:handler flutter.handler/war-handler,
    :init flutter.handler/init,
