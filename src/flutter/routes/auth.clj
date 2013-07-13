@@ -47,7 +47,7 @@
 
 (defn handle-login [id pass]
   (let [user (db/get-user id)]
-    (if (and user (crypt/compare pass (:pass user)))
+    (if (and user (crypt/compare pass (:password user)))
       (session/put! :user-id id))
     (resp/redirect "/")))
 
