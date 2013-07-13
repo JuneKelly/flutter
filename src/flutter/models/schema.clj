@@ -1,11 +1,12 @@
 (ns flutter.models.schema
   (:require [noir.io :as io]
             [monger.core :as mg]
-            [monger.collection :as mc]))
+            [monger.collection :as mc])
+  (:use [flutter.env :only [config]]))
 
 
 (mg/connect!)
-(mg/set-db! (mg/get-db "flutter_dev"))
+(mg/set-db! (mg/get-db (:database config)))
 
 
 (defn initialize []
