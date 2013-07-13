@@ -24,6 +24,7 @@
      :pass-error (vali/on-error :pass first)
      :pass1-error (vali/on-error :pass1 first)}))
 
+
 (defn handle-registration [id pass pass1]
   (if (valid? id pass pass1)
     (try
@@ -36,14 +37,17 @@
         (register)))
     (register id)))
 
+
 (defn profile []
   (layout/render
     "profile.html"
     {:user (db/get-user (session/get :user-id))}))
 
+
 (defn update-profile [{:keys [first-name last-name email]}]
   (db/update-user (session/get :user-id) first-name last-name email)
   (profile))
+
 
 (defn handle-login [id pass]
   (let [user (db/get-user id)]
@@ -51,9 +55,11 @@
       (session/put! :user-id id))
     (resp/redirect "/")))
 
+
 (defn logout []
   (session/clear!)
   (resp/redirect "/"))
+
 
 (defroutes auth-routes
   (GET "/register" []
@@ -63,9 +69,9 @@
         (handle-registration id pass pass1))
 
   (GET "/profile" [] (profile))
-  
+
   (POST "/update-profile" {params :params} (update-profile params))
-  
+
   (POST "/login" [id pass]
         (handle-login id pass))
 
