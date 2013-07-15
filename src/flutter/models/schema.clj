@@ -11,4 +11,8 @@
 
 (defn initialize []
   (mc/ensure-index "users"
-                   {:l_name 1}))
+                   {:l_name 1})
+  (mc/ensure-index "entries"
+                   {:author 1})
+  (mc/ensure-index "entries"
+                   {:created -1}))
