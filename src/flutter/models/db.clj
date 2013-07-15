@@ -4,7 +4,8 @@
   (:require [monger.core :as mg])
   (:require [monger.collection :as mc])
   (:import [org.bson.types ObjectId]
-           [com.mongodb DB WriteConcern]))
+           [com.mongodb DB WriteConcern])
+  (:use [monger.query :only [find, with-collection, sort, limit]]))
 
 
 (mg/connect!)
@@ -35,3 +36,10 @@
              :content content,
              :created (new java.util.Date)}]
     (mc/insert "entries" doc)))
+
+
+(defn get-latest-entries-for-user [user-id]
+  (with-colleciton "entries"
+    (find {:author user-id})
+    (sort (sorted-map :created -1))
+    (limit 5)))
