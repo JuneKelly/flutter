@@ -5,7 +5,7 @@
   (:require [monger.collection :as mc])
   (:import [org.bson.types ObjectId]
            [com.mongodb DB WriteConcern])
-  (:use [monger.query :only [find, with-collection, sort, limit]]))
+  (:require [monger.query :as mq]))
 
 
 (mg/connect!)
@@ -39,7 +39,14 @@
 
 
 (defn get-latest-entries-for-user [user-id]
-  (with-colleciton "entries"
-    (find {:author user-id})
-    (sort (sorted-map :created -1))
-    (limit 5)))
+  (mq/with-collection "entries"
+    (mq/find {:author user-id})
+    (mq/sort (sorted-map :created -1))
+    (mq/limit 5)))
+
+
+(defn get-top-twenty []
+  (mq/with-collection "entries"
+    (mq/find {})
+    (mq/sort (sorted-map :created -1))
+    (mq/limit 20)))
