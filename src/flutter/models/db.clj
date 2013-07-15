@@ -11,6 +11,7 @@
 (mg/set-db! (mg/get-db (:database config)))
 
 
+;; Users
 (defn create-user [id, pass]
   (let [doc {:_id id, :password pass}]
     (mc/insert "users" doc)))
@@ -25,3 +26,12 @@
 
 (defn get-user [id]
   (mc/find-map-by-id "users" id))
+
+
+;; Entries
+(defn create-entry [user-id, content]
+  (let [doc {:_id (ObjectId.),
+             :author user-id,
+             :content content,
+             :created (new java.util.Date)}]
+    (mc/insert "entries" doc)))
