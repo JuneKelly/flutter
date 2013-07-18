@@ -1,0 +1,9 @@
+.flutter-entry {
+  padding-left: 8px;
+  border-left: 2px solid #dddddd;
+  margin-bottom: 16px;
+}
+
+.flutter-entry .author {
+  padding-right: 16px;
+}

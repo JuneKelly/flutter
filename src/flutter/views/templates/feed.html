@@ -2,15 +2,14 @@
 
 {% block content %}
 
+<div class="span6">
+
 <h2>Feed</h2>
 
-<div>
-  <ul>
+  <ul class="unstyled">
     {% for e in entries %}
     <li>
-      <p>{{ e.content }}</p>
-      <p>{{ e.author }}</p>
-      <time>{{ e.created|date:"yyyy-MM-dd HH:mm" }}</time>
+      {% include "flutter/views/templates/_entry.html" %}
     </li>
     {% endfor %}
   </ul>
