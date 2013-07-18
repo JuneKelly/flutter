@@ -29,6 +29,10 @@
   (mc/find-map-by-id "users" id))
 
 
+(defn get-all-users []
+  (mc/find-maps "users" {}))
+
+
 ;; Entries
 (defn create-entry [user-id, content]
   (let [doc {:_id (ObjectId.),

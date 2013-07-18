@@ -3,6 +3,7 @@
             [flutter.routes.auth :refer [auth-routes]]
             [flutter.routes.home :refer [home-routes]]
             [flutter.routes.entries :refer [entry-routes]]
+            [flutter.routes.user :refer [user-routes]]
             [noir.util.middleware :as middleware]
             [noir.session :as session]
             [compojure.route :as route]
@@ -42,7 +43,11 @@
 
 (def app (middleware/app-handler
            ;;add your application routes here
-           [auth-routes home-routes entry-routes app-routes]
+           [auth-routes,
+            home-routes,
+            entry-routes,
+            user-routes
+            app-routes]
            ;;add custom middleware here
            :middleware []
            ;;add access rules here
