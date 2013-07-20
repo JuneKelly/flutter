@@ -2,21 +2,22 @@
 
 
 (def config
-  (let [env (or (System/getenv "ENVIRONMENT") "development")]
+  (let [env (or (System/getenv "FLUTTER_ENV") "dev")]
     ((keyword env)
-      { :development
+      { :dev
         {
+          :host "http://localhost:3000"
           :mongo_host "localhost"
-          :database "flutter_dev" 
+          :database "flutter_dev"
         }
         :test
         {
-          :mongo_host ""
+          :mongo_host "localhost"
           :database "flutter_test"
         }
-        :prouction
+        :prod
         {
           :mongo_host ""
-          :database "flutter" 
+          :database "flutter"
         }
        })))
