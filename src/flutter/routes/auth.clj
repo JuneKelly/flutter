@@ -39,9 +39,11 @@
 
 
 (defn profile []
-  (layout/render
-    "profile.html"
-    {:user (db/get-user (session/get :user-id))}))
+  (if (session/get :user-id)
+    (layout/render
+      "profile.html"
+      {:user (db/get-user (session/get :user-id))})
+    (resp/redirect "/")))
 
 
 (defn update-profile [{:keys [first-name last-name email]}]
