@@ -8,14 +8,16 @@
 
 (def site-root (:host config))
 
+
 (describe "homepage"
 
+  (before-all (t/set-driver! {:browser :firefox}))
+  (after-all (t/quit))
+
   (it "should have flutter name in brand"
-      (t/with-driver {:browser :firefox}
-        (t/to site-root)
-        (should-contain "flutter" (t/text {:tag :a, :class "brand"}))))
+      (t/to site-root)
+      (should-contain "flutter" (t/text {:tag :a, :class "brand"})))
 
   (it "should have a welcome message on the page"
-      (t/with-driver {:broser :firefox}
-        (t/to site-root)
-        (should-contain "Welcome to flutter" (t/text {:tag :body})))))
+      (t/to site-root)
+      (should-contain "Welcome to flutter" (t/text {:tag :body}))))
