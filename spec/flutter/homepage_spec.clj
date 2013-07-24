@@ -18,6 +18,6 @@
       (t/to site-root)
       (should-contain "flutter" (t/text {:tag :a, :class "brand"})))
 
-  (it "should have a welcome message on the page"
+  (it "should have a welcome message somewhere on the page"
       (t/to site-root)
       (should-contain "Welcome to flutter" (t/text {:tag :body}))))
