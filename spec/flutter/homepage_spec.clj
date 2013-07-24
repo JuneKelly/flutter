@@ -14,7 +14,7 @@
   (before-all (t/set-driver! {:browser :firefox}))
   (after-all (t/quit))
 
-  (it "should have flutter name in brand"
+  (it "should have flutter name in brand link"
       (t/to site-root)
       (should-contain "flutter" (t/text {:tag :a, :class "brand"})))
 
