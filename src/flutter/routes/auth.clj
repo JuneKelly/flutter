@@ -48,8 +48,9 @@
 
 
 (defn update-profile [{:keys [first-name last-name email]}]
-  (db/update-user (h/current-user) first-name last-name email)
-  (profile))
+  (if (h/logged-in?)
+    (db/update-user (h/current-user) first-name last-name email)
+    (profile)))
 
 
 (defn handle-login [id pass]

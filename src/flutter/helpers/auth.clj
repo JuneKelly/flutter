@@ -2,7 +2,7 @@
   (:require [noir.session :as session]))
 
 (defn logged-in? []
-  (if (session/get "user-id")
+  (if (session/get :user-id)
     true
     false))
 
