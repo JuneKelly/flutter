@@ -14,13 +14,16 @@
   (before-all (t/set-driver! {:browser :firefox}))
   (after-all (t/quit))
 
+  (before (t/to site-root))
+
   (it "should have flutter name in brand link"
-      (t/to site-root)
       (should-contain "flutter" (t/text {:tag :a, :class "brand"})))
 
   (it "should have a welcome message somewhere on the page"
-      (t/to site-root)
       (should-contain "Welcome to flutter" (t/text {:tag :body})))
+
   (it "should have a login button visible"
-      (t/to site-root)
-      (t/exists? "input.btn[value=Login]")))
+      (t/exists? "input.btn[value=Login]"))
+
+  (it "should have a register link visible"
+      (t/exists? "a[href='/register']")))
