@@ -9,7 +9,7 @@
 (def site-root (:host config))
 
 
-(describe "homepage"
+(describe "homepage, with guest user"
 
   (before-all (t/set-driver! {:browser :firefox}))
   (after-all (t/quit))

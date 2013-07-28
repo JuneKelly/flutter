@@ -5,7 +5,8 @@
             [noir.response :as resp]
             [noir.validation :as vali]
             [noir.util.crypt :as crypt]
-            [flutter.models.db :as db]))
+            [flutter.models.db :as db]
+            [flutter.helpers.auth :as h]))
 
 (defn valid? [id pass pass1]
   (vali/rule (vali/has-value? id)
@@ -26,11 +27,11 @@
 
 
 (defn handle-registration [id pass pass1]
-  (if (valid? id pass pass1)
+  (if (valid? id pass pass1) ;; should not allow for logged in user
     (try
       (do
         (db/create-user id (crypt/encrypt pass))
-        (session/put! :user-id id)
+        (h/log-in id)
         (resp/redirect "/"))
       (catch Exception ex
         (vali/rule false [:id (.getMessage ex)])
@@ -39,27 +40,27 @@
 
 
 (defn profile []
-  (if (session/get :user-id)
+  (if (h/logged-in?)
     (layout/render
       "profile.html"
-      {:user (db/get-user (session/get :user-id))})
+      {:user (db/get-user (h/current-user))})
     (resp/redirect "/")))
 
 
 (defn update-profile [{:keys [first-name last-name email]}]
-  (db/update-user (session/get :user-id) first-name last-name email)
+  (db/update-user (h/current-user) first-name last-name email)
   (profile))
 
 
 (defn handle-login [id pass]
   (let [user (db/get-user id)]
     (if (and user (crypt/compare pass (:password user)))
-      (session/put! :user-id id))
+      (h/log-in id))
     (resp/redirect "/")))
 
 
 (defn logout []
-  (session/clear!)
+  (h/log-out)
   (resp/redirect "/"))
 
 
