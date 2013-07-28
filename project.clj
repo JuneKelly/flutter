@@ -27,9 +27,14 @@
   :profiles
   {:production
    {:ring
-    {:open-browser? false, :stacktraces? false, :auto-reload? false}},
+    {:open-browser? false, :stacktraces? false, :auto-reload? false}
+    :resource-paths ["config/prod"]},
    :dev
-   {:dependencies [[ring-mock "0.1.5"] [ring/ring-devel "1.1.8"] [speclj "2.5.0"]]}}
+   {:dependencies [[ring-mock "0.1.5"] [ring/ring-devel "1.1.8"] [speclj "2.5.0"]]
+    :resource-paths ["config/dev"]}
+   :test
+   {:dependencies []
+    :resource-paths ["config/test"]}}
   :url
   "http://example.com/FIXME"
   :plugins

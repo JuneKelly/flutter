@@ -1,6 +1,6 @@
 (ns flutter.models.db
   (:require [flutter.models.schema :as schema])
-  (:use [flutter.env :only [config]])
+  (:use [flutter.env :only [get-config]])
   (:require [monger.core :as mg])
   (:require [monger.collection :as mc])
   (:import [org.bson.types ObjectId]
@@ -9,7 +9,7 @@
 
 
 (mg/connect!)
-(mg/set-db! (mg/get-db (:database config)))
+(mg/set-db! (mg/get-db (:database (get-config))))
 
 
 ;; Users

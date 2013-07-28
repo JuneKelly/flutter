@@ -2,11 +2,11 @@
   (:require [noir.io :as io]
             [monger.core :as mg]
             [monger.collection :as mc])
-  (:use [flutter.env :only [config]]))
+  (:use [flutter.env :only [get-config]]))
 
 
 (mg/connect!)
-(mg/set-db! (mg/get-db (:database config)))
+(mg/set-db! (mg/get-db (:database (get-config))))
 
 
 (defn initialize []

@@ -3,10 +3,10 @@
         [clojure.test]
         [ring.mock.request]
         [flutter.handler]
-        [flutter.env :only [config]])
+        [flutter.env :only [get-config]])
   (:require [clj-webdriver.taxi :as t]))
 
-(def site-root (:host config))
+(def site-root (:host (get-config)))
 
 
 (describe "homepage, with guest user"
