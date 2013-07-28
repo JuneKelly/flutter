@@ -20,4 +20,7 @@
 
   (it "should have a welcome message somewhere on the page"
       (t/to site-root)
-      (should-contain "Welcome to flutter" (t/text {:tag :body}))))
+      (should-contain "Welcome to flutter" (t/text {:tag :body})))
+  (it "should have a login button visible"
+      (t/to site-root)
+      (t/exists? "input.btn[value=Login]")))
