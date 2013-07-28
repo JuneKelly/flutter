@@ -2,11 +2,11 @@
   (:use [speclj.core]
         [clojure.test]
         [ring.mock.request]
-        [flutter.handler]
-        [flutter.env :only [get-config]])
-  (:require [clj-webdriver.taxi :as t]))
+        [flutter.handler])
+  (:require [clj-webdriver.taxi :as t]
+            [flutter.env :as env]))
 
-(def site-root (:host (get-config)))
+(def site-root env/host)
 
 
 (describe "homepage, with guest user"

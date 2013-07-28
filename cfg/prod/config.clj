@@ -2,5 +2,5 @@
 
 
 (def config {:host ""
-             :mongo_host ""
+             :mongo-host ""
              :database "flutter"})
