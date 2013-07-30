@@ -42,6 +42,10 @@
     (mc/insert "entries" doc)))
 
 
+(defn get-entry [id]
+  (mc/find-map-by-id "entries" id))
+
+
 (defn get-latest-entries-for-user [user-id]
   (mq/with-collection "entries"
     (mq/find {:author user-id})
