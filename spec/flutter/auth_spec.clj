@@ -39,3 +39,18 @@
       (should-contain "userone" (t/text {:tag :body}))
       (should-contain "Users" (t/text {:tag :body}))
       (should-contain "Feed" (t/text {:tag :body}))))
+
+
+(describe "attempt login as invalid user"
+
+  (before-all (t/set-driver! {:browser :firefox}))
+  (after-all (t/quit))
+
+  (it "should not log in"
+      (t/to site-root)
+      (t/quick-fill-submit {"#id" "not-a-user"}
+                           {"#pass" "whatever"}
+                           {"input.btn[value=Login]" t/click})
+      (should-not-contain "not-a-user" (t/text {:tag :body}))
+      (should-not-contain "Users" (t/text {:tag :body}))
+      (should-not-contain "Feed" (t/text {:tag :body}))))
