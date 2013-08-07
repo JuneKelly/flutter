@@ -8,6 +8,7 @@
             [flutter.models.db :as db]
             [flutter.helpers.auth :as h]))
 
+
 (defn valid? [id pass pass1]
   (vali/rule (vali/has-value? id)
              [:id "user ID is required"])
@@ -16,6 +17,7 @@
   (vali/rule (= pass pass1)
              [:pass1 "entered passwords do not match"])
   (not (vali/errors? :id :pass :pass1)))
+
 
 (defn register [& [id]]
   (layout/render
