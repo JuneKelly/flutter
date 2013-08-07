@@ -2,15 +2,18 @@
   (:use compojure.core)
   (:require [flutter.views.layout :as layout]
             [noir.session :as session]
-            [noir.response :as resp]
+            [noir.response :as response]
             [noir.validation :as vali]
-            [flutter.models.db :as db]))
+            [flutter.models.db :as db]
+            [flutter.helpers.auth :as auth]))
 
 
 (defn feed []
-  (layout/render
-    "feed.html"
-    {:entries (db/get-top-twenty)}))
+  (if auth/logged-in?
+    (layout/render
+      "feed.html"
+      {:entries (db/get-top-twenty)})
+    (response/redirect "/")))
 
 
 (defn user-entries [user-id]
