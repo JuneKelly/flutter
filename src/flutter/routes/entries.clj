@@ -16,6 +16,14 @@
     (response/redirect "/")))
 
 
+(defn create-entry [content]
+  (if (auth/logged-in?)
+    (do
+      (db/create-user (auth/current-user) content)
+      (response/redirect "/feed"))
+    (response/redirect "/")))
+
+
 (defn user-entries [user-id]
   (layout/render
     "user_entries.html"
